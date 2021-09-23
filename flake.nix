@@ -1,7 +1,8 @@
 {
   description = "treefmt";
   # To update all inputs:
-  # $ nix flake update --recreate-lock-file
+  # $ nix flake update
+  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
   inputs.devshell.url = "github:numtide/devshell";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.naersk.inputs.nixpkgs.follows = "nixpkgs";
