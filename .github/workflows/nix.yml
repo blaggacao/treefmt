@@ -11,7 +11,7 @@ jobs:
       matrix:
         os:
           - macos-latest
-          - ubuntu-20.04
+          # - ubuntu-20.04
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -21,26 +21,3 @@ jobs:
           name: numtide
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - run: ./ci.sh
-  docs:
-    strategy:
-      matrix:
-        os: [ ubuntu-20.04 ]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: cachix/install-nix-action@v14
-      - uses: cachix/cachix-action@v10
-        with:
-          name: numtide
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - run: |
-          nix-build -A docs
-          cp -r "$(readlink ./result)" book
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/master'
-        uses: crazy-max/ghaction-github-pages@v2
-        with:
-          target_branch: gh-pages
-          build_dir: book
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

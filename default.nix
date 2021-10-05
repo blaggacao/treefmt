@@ -25,5 +25,14 @@ in
   docs = nixpkgs.callPackage ./docs { };
 
   # The development environment
-  devShell = devshell.fromTOML ./devshell.toml;
+  devShell = devshell.mkShell {
+    imports = [
+      (devshell.importTOML ./devshell.toml)
+    ];
+
+    env = nixpkgs.lib.optional nixpkgs.stdenv.isDarwin {
+      name = "DYLD_FALLBACK_LIBRARY_PATH";
+      value = "${nixpkgs.libiconv}/lib:${nixpkgs.libiconv}/include";
+    };
+  };
 }

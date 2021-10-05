@@ -2,15 +2,15 @@
 #!nix-shell -i bash
 # nix-shell loads the devshell making rust and all the formatters available.
 # shellcheck shell=bash
-set -euo pipefail
+set -exuo pipefail
 
-set -x
+env | grep DYLD
 
 # Quick sanity check
-# cargo test
+cargo test
 
-# Check that no code needs reformatting. Acts as a minimal integration test.
+# # Check that no code needs reformatting. Acts as a minimal integration test.
 # cargo run -- --fail-on-change
 
-# Build the nix package
-nix-build
+# # Build the nix package
+# nix-build

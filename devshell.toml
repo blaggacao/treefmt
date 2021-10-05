@@ -28,9 +28,6 @@ packages = [
   "mdbook"
 ]
 
-[language.c]
-libraries = ["libiconv"]
-
 [[env]]
 name = "PATH"
 eval = "$PWD/target/debug:$PATH"
